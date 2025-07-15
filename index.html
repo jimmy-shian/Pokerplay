@@ -224,6 +224,15 @@
       color: #d84315;
       margin: 0.5rem 0;
     }
+    #dice small{
+      font-size: .6em;
+    }
+    .action-buttons select{
+      padding: .4rem .6rem;
+      font-size: 1rem;
+      border-radius: 4px;
+      border: 1px solid #ccc;
+    }
 
     @media (max-width: 768px) {
       #main-container {
@@ -235,7 +244,8 @@
         position: relative;
       }
       .tiles {
-        grid-template-columns: repeat(6, 1fr);
+        grid-template-columns: repeat(3, 1fr);
+        font-size: 5rem;
       }
       #cfg {
         align-items: stretch;
@@ -294,6 +304,10 @@
     <section id="desk">
       <div id="dice"></div>
       <div class="action-buttons">
+        <select id="dice-num">
+          <option value="1">1 顆</option>
+          <option value="2" selected>2 顆</option>
+        </select>
         <button id="roll">擲骰</button>
         <button id="cover" disabled>蓋牌</button>
       </div>
@@ -327,8 +341,9 @@
       }
 
       reset() {
-        this.cards = Array.from({ length: 12 }, (_, i) => i + 1);
+        this.cards = Array.from({ length: 9 }, (_, i) => i + 1);
         this.history = [];
+        this.rolls = 0;
       }
 
       has() {
@@ -371,12 +386,13 @@
 
     function logMsg(type, data) {
       const p = players[idx];
+      const displayName = type === 'sys' ? '系統' : p.name;
       const entry = document.createElement('div');
       entry.className = 'log-entry';
 
       const text = document.createElement('div');
       text.className = 'log-text';
-      text.innerHTML = `<strong>${p.name}</strong> ${data.msg}`;
+      text.innerHTML = `<strong>${displayName}</strong> ${data.msg}`;
       entry.appendChild(text);
 
       if (type === 'cover') {
@@ -414,7 +430,7 @@
 
         const tiles = document.createElement('div');
         tiles.className = 'tiles';
-        for (let n = 1; n <= 12; n++) {
+        for (let n = 1; n <= 9; n++) {
           const t = document.createElement('div');
           t.className = 'tile' + (p.cards.includes(n) ? '' : ' disabled');
           if (sel.includes(n) && p.human && i === idx) t.classList.add('selected');
@@ -465,7 +481,13 @@
     $('#ai-count').addEventListener('change', updatePlayerCounts);
 
     function dice(num) {
-      return Array.from({ length: num }).reduce(s => s + Math.floor(Math.random() * 6 + 1), 0);
+      let sum = 0;
+      const rolls = new Uint32Array(num);  // 建立 num 個隨機數空間
+      crypto.getRandomValues(rolls);       // 填入真正隨機數值
+      for (let i = 0; i < num; i++) {
+        sum += (rolls[i] % 6) + 1;        // 轉為 1~6 間的骰子值
+      }
+      return sum;
     }
 
     function next() {
@@ -477,8 +499,10 @@
 
     function checkEnd() {
       if (!players[idx].has()) {
-        logMsg('info', { msg: '🏆 勝利!' });
+        logMsg('sys', { msg: '🏆 勝利!' });
+        players.forEach(p => logMsg('sys', { msg: `${p.name} 共擲骰 ${p.rolls} 次，剩 ${p.cards.length} 張` }));
         $('#roll').disabled = $('#cover').disabled = true;
+        render();
         return true;
       }
       return false;
@@ -492,9 +516,15 @@
         return;
       }
 
-      const dn = pl.cards.length === 1 ? 1 : 2;
+      let dn;
+      if (pl.cards.includes(1)) {
+        dn = Math.random() < 0.5 ? 1 : 2;
+      } else {
+        dn = 2;
+      }
       dSum = dice(dn);
-      $('#dice').textContent = `🎲 ${pl.name} 擲出 ${dSum}`;
+      pl.rolls++;
+      $('#dice').innerHTML = `🎲 <small>${pl.name}</small> 擲出 ${dSum}`;
       logMsg('info', { msg: `擲出 ${dSum}` });
 
       const v = pl.valid(dSum);
@@ -515,9 +545,12 @@
     }
 
     $('#roll').addEventListener('click', () => {
+      $('#roll').disabled = true;
       const pl = players[idx];
-      dSum = dice(pl.cards.length === 1 ? 1 : 2);
-      $('#dice').textContent = `🎲 ${pl.name} 擲出 ${dSum}`;
+      const diceCount = $('#dice-num').value;
+      dSum = dice(diceCount);
+      pl.rolls++;
+      $('#dice').innerHTML = `🎲 <small>${pl.name}</small> 擲出 ${dSum}`;
       logMsg('info', { msg: `擲出 ${dSum}` });
 
       const v = pl.valid(dSum);
@@ -529,7 +562,6 @@
         return;
       }
 
-      $('#roll').disabled = true;
       render();
     });
 
