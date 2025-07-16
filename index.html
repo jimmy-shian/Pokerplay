@@ -1,19 +1,25 @@
 <!DOCTYPE html>
 <html lang="zh-Hant">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <title>Shut-the-Suit</title>
-  <link rel="shortcut icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🂡</text></svg>">
+  <link rel="shortcut icon"
+    href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🂡</text></svg>">
   <style>
     :root {
       --bg: #f6f8fa;
       --card: #fff;
       --covered: #b0bec5;
-      --p1-color: #1976d2; --p1-light: rgba(25, 118, 210, 0.2);
-      --p2-color: #d32f2f; --p2-light: rgba(211, 47, 47, 0.2);
-      --p3-color: #388e3c; --p3-light: rgba(56, 142, 60, 0.2);
-      --p4-color: #f57c00; --p4-light: rgba(245, 124, 0, 0.2);
+      --p1-color: #1976d2;
+      --p1-light: rgba(25, 118, 210, 0.2);
+      --p2-color: #d32f2f;
+      --p2-light: rgba(211, 47, 47, 0.2);
+      --p3-color: #388e3c;
+      --p3-light: rgba(56, 142, 60, 0.2);
+      --p4-color: #f57c00;
+      --p4-light: rgba(245, 124, 0, 0.2);
     }
 
     body {
@@ -35,7 +41,7 @@
       background: var(--card);
       padding: 1rem 1.5rem;
       border-radius: 8px;
-      box-shadow: 0 2px 6px rgba(0,0,0,.1);
+      box-shadow: 0 2px 6px rgba(0, 0, 0, .1);
       margin-bottom: 1rem;
       display: flex;
       align-items: center;
@@ -43,7 +49,8 @@
       flex-wrap: wrap;
     }
 
-    select, button {
+    select,
+    button {
       padding: .4rem .6rem;
       font-size: 1rem;
       border-radius: 4px;
@@ -82,7 +89,7 @@
       margin-bottom: 1rem;
       padding: 1rem;
       border-radius: 8px;
-      box-shadow: 0 1px 4px rgba(0,0,0,.1);
+      box-shadow: 0 1px 4px rgba(0, 0, 0, .1);
     }
 
     .phead {
@@ -128,9 +135,10 @@
     #roll:hover:not(:disabled) {
       background: #0056b3;
     }
-    #roll:disabled{
-        background: #ccc;
-        cursor: not-allowed;
+
+    #roll:disabled {
+      background: #ccc;
+      cursor: not-allowed;
     }
 
     #cover {
@@ -140,9 +148,10 @@
     #cover:hover:not(:disabled) {
       background: #c82333;
     }
-    #cover:disabled{
-        background: #ccc;
-        cursor: not-allowed;
+
+    #cover:disabled {
+      background: #ccc;
+      cursor: not-allowed;
     }
 
     .tile {
@@ -179,7 +188,7 @@
       background: var(--card);
       padding: 1rem;
       border-radius: 8px;
-      box-shadow: 0 1px 4px rgba(0,0,0,.1);
+      box-shadow: 0 1px 4px rgba(0, 0, 0, .1);
       position: sticky;
       top: 1rem;
     }
@@ -224,10 +233,12 @@
       color: #d84315;
       margin: 0.5rem 0;
     }
-    #dice small{
+
+    #dice small {
       font-size: .6em;
     }
-    .action-buttons select{
+
+    .action-buttons select {
       padding: .4rem .6rem;
       font-size: 1rem;
       border-radius: 4px;
@@ -239,26 +250,72 @@
         flex-direction: column;
         align-items: center;
       }
+
       #log-panel {
         width: 80%;
         position: relative;
       }
+
       .tiles {
         grid-template-columns: repeat(3, 1fr);
         font-size: 5rem;
       }
+
       #cfg {
         align-items: stretch;
         width: -webkit-fill-available;
         margin: 1rem;
       }
     }
-  .tip{display:inline-block;width:1.2rem;height:1.2rem;line-height:1.2rem;text-align:center;border-radius:50%;background:#17a2b8;color:#fff;font-weight:bold;cursor:help;font-size:.75rem;margin-left:.25rem;}
-  .modal-overlay{position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,.5);display:none;align-items:center;justify-content:center;z-index:1000;}
-.modal-box{background:#fff;padding:1rem 1.5rem;border-radius:8px;max-width:90%;box-shadow:0 2px 8px rgba(0,0,0,.3);position:relative;}
-.close-btn{position:absolute;top:.3rem;right:.5rem;cursor:pointer;font-weight:bold;font-size:1.2rem;}
+
+    .tip {
+      display: inline-block;
+      width: 1.2rem;
+      height: 1.2rem;
+      line-height: 1.2rem;
+      text-align: center;
+      border-radius: 50%;
+      background: #17a2b8;
+      color: #fff;
+      font-weight: bold;
+      cursor: help;
+      font-size: .75rem;
+      margin-left: .25rem;
+    }
+
+    .modal-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, .5);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 1000;
+    }
+
+    .modal-box {
+      background: #fff;
+      padding: 1rem 1.5rem;
+      border-radius: 8px;
+      max-width: 90%;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, .3);
+      position: relative;
+    }
+
+    .close-btn {
+      position: absolute;
+      top: .3rem;
+      right: .5rem;
+      cursor: pointer;
+      font-weight: bold;
+      font-size: 1.2rem;
+    }
   </style>
 </head>
+
 <body>
 
   <h1>🎲 Shut-the-Suit</h1>
@@ -266,7 +323,8 @@
   <section id="cfg">
     <label>真人</label>
     <select id="human-count">
-      <option value="1" selected>1</option>
+      <option value="0" selected>0</option>
+      <option value="1">1</option>
       <option value="2">2</option>
       <option value="3">3</option>
       <option value="4">4</option>
@@ -274,9 +332,10 @@
     <label>AI</label>
     <select id="ai-count">
       <option value="0">0</option>
-      <option value="1" selected>1</option>
-      <option value="2">2</option>
+      <option value="1">1</option>
+      <option value="2" selected>2</option>
       <option value="3">3</option>
+      <option value="4">4</option>
     </select>
     <label>AI 策略</label>
     <select id="str">
@@ -290,15 +349,15 @@
 
   <!-- Strategy Info Modal -->
   <div id="strategy-modal" class="modal-overlay">
-      <div class="modal-box">
-          <span class="close-btn">×</span>
-          <h4 style="margin-top:0">AI 策略說明</h4>
-          <ul style="margin:0 0 .5rem 1rem;padding:0;">
-              <li><strong>min</strong>：出最少張牌</li>
-              <li><strong>max</strong>：出最多張牌</li>
-              <li><strong>safe</strong>：優先避開 1</li>
-          </ul>
-      </div>
+    <div class="modal-box">
+      <span class="close-btn">×</span>
+      <h4 style="margin-top:0">AI 策略說明</h4>
+      <ul style="margin:0 0 .5rem 1rem;padding:0;">
+        <li><strong>min</strong>：出最少張牌</li>
+        <li><strong>max</strong>：出最多張牌</li>
+        <li><strong>safe</strong>：優先避開 1</li>
+      </ul>
+    </div>
   </div>
   <div id="main-container">
     <section id="desk">
@@ -373,7 +432,7 @@
           case 'safe':
             const non_one = v.filter(c => !c.includes(1));
             if (non_one.length) {
-                return non_one.reduce((a, b) => a.length > b.length ? a : b);
+              return non_one.reduce((a, b) => a.length > b.length ? a : b);
             }
             return v.reduce((a, b) => a.length < b.length ? a : b);
         }
@@ -392,7 +451,7 @@
 
       const text = document.createElement('div');
       text.className = 'log-text';
-      text.innerHTML = `<strong>${displayName}</strong> ${data.msg}`;
+      text.innerHTML = `<strong>${displayName}:</strong> ${data.msg}`;
       entry.appendChild(text);
 
       if (type === 'cover') {
@@ -461,20 +520,33 @@
       render();
     }
 
-    function updatePlayerCounts(){
-        const hSel = $('#human-count'), aSel = $('#ai-count');
-        const hVal = +hSel.value, aVal = +aSel.value;
-        const total = hVal + aVal;
+    function updatePlayerCounts() {
+      const hSel = $('#human-count'), aSel = $('#ai-count');
+      const changedIsHuman = this.id === 'human-count';
+      const hVal = +hSel.value, aVal = +aSel.value;
 
-        if (total > 4) {
-            if (this.id === 'human-count') {
-                aSel.value = 4 - hVal;
-            } else {
-                hSel.value = 4 - aVal;
-            }
+      let newH = hVal, newA = aVal;
+
+      let total = newH + newA;
+
+      if (total < 2) {
+        if (changedIsHuman) {
+          newA = 2 - newH;
+        } else {
+          newH = 2 - newA;
         }
-        const newTotal = +hSel.value + +aSel.value;
-        $('#start').disabled = newTotal < 2 || newTotal > 4;
+      } else if (total > 4) {
+        if (changedIsHuman) {
+          newA = 4 - newH;
+        } else {
+          newH = 4 - newA;
+        }
+      }
+
+      hSel.value = newH;
+      aSel.value = newA;
+      total = newH + newA;
+      $('#start').disabled = total < 2 || total > 4;
     }
 
     $('#human-count').addEventListener('change', updatePlayerCounts);
@@ -499,7 +571,7 @@
 
     function checkEnd() {
       if (!players[idx].has()) {
-        logMsg('sys', { msg: '🏆 勝利!' });
+        logMsg('sys', { msg: `${players[idx].name} 🏆 勝利!` });
         players.forEach(p => logMsg('sys', { msg: `${p.name} 共擲骰 ${p.rolls} 次，剩 ${p.cards.length} 張` }));
         $('#roll').disabled = $('#cover').disabled = true;
         render();
@@ -581,11 +653,11 @@
       const aCount = +$('#ai-count').value;
       const st = $('#str').value;
       players = [];
-      for(let i=0; i<hCount; i++){
-          players.push(new Player(`玩家 ${i+1}`, null, true, P_COLORS[players.length]));
+      for (let i = 0; i < hCount; i++) {
+        players.push(new Player(`玩家 ${i + 1}`, null, true, P_COLORS[players.length]));
       }
-      for(let i=0; i<aCount; i++){
-          players.push(new Player(`AI ${i+1}`, st, false, P_COLORS[players.length]));
+      for (let i = 0; i < aCount; i++) {
+        players.push(new Player(`AI ${i + 1}`, st, false, P_COLORS[players.length]));
       }
 
       idx = 0;
@@ -593,19 +665,20 @@
       $('#dice').textContent = '';
       $('#main-container').style.display = 'flex';
       loop();
-      document.querySelector('#dice').scrollIntoView({behavior:'smooth', block:'center'});
+      document.querySelector('#dice').scrollIntoView({ behavior: 'smooth', block: 'center' });
 
     });
     // Allow tap/click on the strategy tip to show explanation (useful for touch devices)
-  const tip=document.querySelector('.tip');
-  const modal=document.getElementById('strategy-modal');
-  tip.addEventListener('click',()=>{modal.style.display='flex';});
-  modal.addEventListener('click',e=>{
-      if(e.target===modal||e.target.classList.contains('close-btn')){
-          modal.style.display='none';
+    const tip = document.querySelector('.tip');
+    const modal = document.getElementById('strategy-modal');
+    tip.addEventListener('click', () => { modal.style.display = 'flex'; });
+    modal.addEventListener('click', e => {
+      if (e.target === modal || e.target.classList.contains('close-btn')) {
+        modal.style.display = 'none';
       }
-  });
-</script>
+    });
+  </script>
 
 </body>
+
 </html>
