@@ -1,0 +1,237 @@
+/* ===== Poker Tool Fresh CSS ===== */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f0f2f5;
+    color: #333;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+}
+
+ul {
+    padding: 0 0 0 3rem;
+}
+
+.container {
+    background-color: #ffffff;
+    padding: 2rem;
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    width: 90%;
+    max-width: 1100px;
+}
+
+h1 {
+    text-align: center;
+    color: #1a73e8;
+    margin-bottom: 0.5rem;
+}
+
+p:not(#suggestion-output > div > p) {
+    text-align: center;
+    color: #5f6368;
+    margin: 1.5rem 0 2rem;
+}
+    #suggestion-output > div > p {
+        color: #333;
+        margin: 0 0 0.5rem 0;
+    }
+
+/* === Layout === */
+.main-layout {
+    display: flex;
+    gap: 2rem;
+}
+
+.left-panel {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.right-panel {
+    flex: 1;
+}
+
+/* === Card Grid === */
+.card-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(80px, 1fr));
+    gap: 12px;
+    width: 100%;
+}
+
+.card {
+    background-color: #e8f0fe;
+    border: 2px solid #1a73e8;
+    color: #1a73e8;
+    aspect-ratio: 1 / 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 8px;
+    font-size: 1.5rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: transform 0.2s;
+    user-select: none;
+}
+
+.card:hover {
+    transform: translateY(-3px);
+}
+
+.card.removed {
+    background-color: #dcdcdc;
+    border-color: #a0a0a0;
+    color: #a0a0a0;
+    cursor: not-allowed;
+}
+
+/* === Controls === */
+.controls {
+    margin-top: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    width: 100%;
+    max-width: 320px;
+}
+
+.input-group,
+.button-group {
+    display: flex;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+}
+
+.control-group {
+    display: flex;
+    flex-direction: column;
+}
+
+.control-group label {
+    font-size: 0.9rem;
+    margin-bottom: 4px;
+    color: #5f6368;
+}
+
+input[type="number"] {
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    width: 100px;
+    font-size: 1rem;
+}
+
+button {
+    padding: 10px 16px;
+    border: none;
+    border-radius: 5px;
+    font-size: 1rem;
+    cursor: pointer;
+    color: #ffffff;
+}
+
+#suggest-btn {
+    background-color: #1a73e8;
+}
+
+#suggest-btn:hover {
+    background-color: #155ab6;
+}
+
+#reset-btn {
+    background-color: #f44336;
+}
+
+#reset-btn:hover {
+    background-color: #d32f2f;
+}
+
+/* === Results === */
+.results {
+    background-color: #f8f9fa;
+    padding: 1.5rem;
+    border-radius: 8px;
+    max-height: 60vh;
+    height: 100%;
+    overflow-y: auto;
+    border: 0.1rem solid #ff6969;
+}
+
+.results h2 {
+    color: #1a73e8;
+    margin-top: 0;
+    border-bottom: 2px solid #e0e0e0;
+    padding-bottom: 0.5rem;
+}
+
+#suggestion-output {
+    font-size: 1.1rem;
+    line-height: 1.6;
+    margin-top: 1rem;
+}
+
+/* === Suggestion Styling === */
+.suggestion-item {
+    margin-bottom: 1rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px dashed #ccc;
+}
+
+.suggestion-item:last-child {
+    border-bottom: none;
+    margin-bottom: 0;
+    padding-bottom: 0;
+}
+
+.suggestion-item strong {
+    display: inline-block;
+    padding: 3px 8px;
+    border-radius: 5px;
+    color: #ffffff;
+    margin-right: 8px;
+}
+
+#suggestion-output > div > p > strong {
+    color: #333333;
+}
+
+.strategy-min { background-color: #4caf50; }
+.strategy-max { background-color: #f44336; }
+.strategy-safe { background-color: #2196f3; }
+
+.combo {
+    font-weight: bold;
+    font-size: 1.2rem;
+    color: #333333;
+}
+
+/* === Responsive (Mobile) === */
+@media (max-width: 768px) {
+    .main-layout {
+        flex-direction: column;
+    }
+
+    .card-grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+
+    .container {
+        padding: 1rem;
+        width: 95%;
+    }
+
+    .results {
+        max-height: 65vh;
+    }
+}

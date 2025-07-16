@@ -133,7 +133,7 @@ class Player:
         self.reset()
 
     def reset(self):
-        self.cards = list(range(1, 13))
+        self.cards = list(range(1, 10))
         self.history = []
 
     def has_cards(self):
@@ -177,7 +177,7 @@ def play_round(players, stats):
     while True:
         player = players[current]
 
-        dice_num = 1 if len(player.cards) == 1 else 2
+        dice_num = 1 if len(player.cards) == 1 and player.cards[0] == 1 else 2
         dice_sum = roll_dice(dice_num)
 
         valid_combos = player.find_valid_combinations(dice_sum)
@@ -273,5 +273,19 @@ def compare_strategies(num_games=1000, num_rounds=3):
             avg = total_score_summary[strategy][players]
             print(f"{strategy} 策略 - {players}人局：平均剩餘牌數 {avg}")
 
+    # 將結果儲存為 JSON
+    import json
+    # 將 tuple key 轉換為 string
+    all_stats_serializable = {}
+    for strategy, player_data in all_stats.items():
+        all_stats_serializable[strategy] = {}
+        for players, combos in player_data.items():
+            all_stats_serializable[strategy][str(players)] = {str(k): v for k, v in combos.items()}
+
+    with open('multiplayer_stats.json', 'w') as f:
+        json.dump(all_stats_serializable, f, indent=2)
+    print("\n✅ 所有策略的模擬數據已儲存至 multiplayer_stats.json")
+
 if __name__ == "__main__":
-    compare_strategies(num_games=1000, num_rounds=3)
+    compare_strategies(num_games=100000, num_rounds=3)
+
